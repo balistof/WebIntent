@@ -140,6 +140,8 @@ public class WebIntent extends CordovaPlugin {
 
                 JSONObject extras = obj.has("extras") ? obj.getJSONObject("extras") : null;
                 Map<String, String> extrasMap = new HashMap<String, String>();
+                
+                Uri uri = obj.has("url") ? Uri.parse(obj.getString("url")) : null;
 
                 // Populate the extras if any exist
                 if (extras != null) {
@@ -151,7 +153,7 @@ public class WebIntent extends CordovaPlugin {
                     }
                 }
 
-                sendBroadcast(obj.getString("action"), extrasMap);
+                sendBroadcast(obj.getString("action"), extrasMap, uri);
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
                 return true;
             }
@@ -203,12 +205,16 @@ public class WebIntent extends CordovaPlugin {
         this.cordova.getActivity().startActivity(i);
     }
 
-    void sendBroadcast(String action, Map<String, String> extras) {
+    void sendBroadcast(String action, Map<String, String> extras, Uri uri) {
         Intent intent = new Intent();
         intent.setAction(action);
         for (String key : extras.keySet()) {
             String value = extras.get(key);
             intent.putExtra(key, value);
+        }
+        
+        if (uri != null) {
+            intent.setData(uri);
         }
 
         this.cordova.getActivity().sendBroadcast(intent);
