@@ -11,6 +11,7 @@ var cordova = window.cordova || window.Cordova;
 CDV.WEBINTENT = {
     ACTION_SEND : "android.intent.action.SEND",
     ACTION_VIEW : "android.intent.action.VIEW",
+    ACTION_MEDIA_SCANNER_SCAN_FILE: "android.intent.action.MEDIA_SCANNER_SCAN_FILE",
     EXTRA_TEXT : "android.intent.extra.TEXT",
     EXTRA_SUBJECT : "android.intent.extra.SUBJECT",
     EXTRA_STREAM : "android.intent.extra.STREAM",
